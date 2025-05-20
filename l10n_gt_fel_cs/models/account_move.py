@@ -10,7 +10,7 @@ class AccountMove(models.Model):
 
     def action_post(self):
         res = super(AccountMove, self).action_post()
-        if self.move_type == 'out_invoice' and self.state='posted':
+        if self.move_type == 'out_invoice' and self.state=='posted':
             for move in self:
                 if move.partner_id.country_id.code == 'GT':
                    _logger.info("Invoice %s is from Guatemala", move.name) 
