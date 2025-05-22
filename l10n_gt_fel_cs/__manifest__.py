@@ -10,6 +10,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/company_views.xml',
+        'views/account_journal_views.xml',
         
         # Add your data files here, e.g. 'views/fel_cs_views.xml'
     ],

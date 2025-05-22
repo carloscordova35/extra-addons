@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                     
                 <notebook position="inside" >
-                    <page name="fe" string="Frases y Escenarios de Impuestos"  invisible="fel_activate==False">
+                    <page name="fe" string="Frases y Escenarios de Impuestos"  invisible="company_id.fel_activate==False">
                         <group>
                             <!--<field name="fel_gface" />
                             <field name="fel_entorno" />
