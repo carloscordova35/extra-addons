@@ -4,6 +4,8 @@ from odoo.exceptions import ValidationError
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
+    fel_activate = fields.Boolean(string="Activar modulo") 
+
     fel_user = fields.Char(string="Usuario")
     fel_apikey = fields.Char(string="Clave API")
     fel_pfxkey = fields.Char(string="Clave PFX")
@@ -20,4 +22,7 @@ class ResCompanyEstablishment(models.Model):
     fel_numero = fields.Integer(string = "Numero establecimiento")
     fel_direccion = fields.Char(string="Direccion")
     fel_ciudad = fields.Char(string="Ciudad")
+    fel_depto = fields.Char(string="Departamento")
+    fel_posta = fields.Char(string="Codigo postal")
+    fel_telefono = fields.Char(string="Telefono")
     company_id = fields.Many2one('res.company',string = "Compañia")

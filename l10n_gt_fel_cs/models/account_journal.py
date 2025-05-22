@@ -9,4 +9,13 @@ class AccountJournal(models.Model):
     ]
 
     fel_tipo =  fields.Selection(tipos,string="Tipo FEL")
-    #fel_establecimiento = fields.Many2one('res.company.establishment',string="Establecimiento")
+    fel_establecimiento = fields.Many2one('res.company.establishment',string="Establecimiento")
+
+
+class AccountJournalPhrases(models.Model):
+    _name = 'res.company.phrases'
+    _description = 'Frases y Escenarios Fel'
+
+    fel_frase = fields.Integer(string="Frase")
+    fel_escenario = fields.Integer(string="Escenario")
+    fel_detalle = fields.Char(string="Detalle de la frase y escenario a incluir")    
