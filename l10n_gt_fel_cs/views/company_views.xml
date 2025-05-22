@@ -10,6 +10,7 @@
                 <notebook position="inside">
                     <page name="fe" string="Factura Electronica GT">
                         <group>
+                            <field name="fel_gface" />
                             <field name="fel_entorno" />
                             <field name="fel_user" />
                             <field name="fel_apikey" />
@@ -17,8 +18,9 @@
                             <field name="fel_establishment_ids" mode="list">
                                 <list editable="bottom">
                                     <field name="fel_numero"/>
-                                    <field name="fel_comercial"/>                               
-                                    <field name="company_id" invisible="1"/>
+                                    <field name="fel_comercial"/>                  
+                                    <field name="fel_direccion"/>                  
+                                    <field name="company_id" column_invisible="1"/>
                                 </list>
                             </field>
                             <!--<field name="fe_other_email" />-->

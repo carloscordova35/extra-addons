@@ -1,5 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_move_complement,access.account.move.complement,model_account_move_complement,,1,1,1,1
-access_account_move_payment,access.account.move.payment,model_account_move_payment,,1,1,1,1
 access_res_company_establishment,access.res.company.establishment,model_res_company_establishment,,1,1,1,1
-access_account_move_cancel,account.move.cancel,model_account_move_cancel,base.group_user,1,1,1,1
