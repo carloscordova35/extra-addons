@@ -6,6 +6,8 @@ class AccountJournal(models.Model):
     tipos = [
         ('FACT','Factura'),
         ('FCAM','Factura Cambiaria'),
+        ('FPEQ','Factura Pequeño Contribuyente'),
+
     ]
     fel_certifica = fields.Boolean(string="Certifica FEL")
     fel_tipo =  fields.Selection(tipos,string="Tipo FEL")

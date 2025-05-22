@@ -8,6 +8,7 @@
     'license': 'LGPL-3',
     'depends': ['account','l10n_gt'],
     'data': [
+        'data/webservices_data.xml',
         'security/ir.model.access.csv',
         'views/company_views.xml',
         'views/account_journal_views.xml',

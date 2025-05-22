@@ -5,19 +5,32 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
+tipos = [
+        ('FACT','Factura'),
+        ('FCAM','Factura Cambiaria'),
+        ('FPEQ','Factura Pequeño Contribuyente'),
+
+    ]
+
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    fel_fecha_emi = fields.Datetime(string="Fecha emision", readonly=True)
+    fel_status = fields.Integer(string="Estado Certificacion", readonly=True, default=0)
+    fel_tipo = fields.Selection(tipos, string="Tipo Documento",related="journal_id.fel_tipo",readonly=True)
+
+
+    #inicia el proceso de envio al confirmar la factura
     def _post(self,soft=True):
         posted = super()._post(soft=soft)
         for move in posted:
-            if(move.journal_id.fel_certifica and move.move_type in ('out_invoice')):
-                _logger.info(" >>> Posted Invoice Certificat %s is from Guatemala", move.name) 
+            if(move.journal_id.fel_certifica and move.move_type in ('out_invoice','in_invoice')):
+                if not move.fel_fecha_emi:
+                    move.fel_fecha_emi = move.create_date
+                _logger.info(" >>> Posted Invoice Certificat %s is from Guatemala (%s)" % (move.name,move.fel_fecha_emi)) 
         return posted    
 
-    fel_fecha_emi = fields.Datetime(string="Fecha emision", readonly=True)
-    fel_status = fields.Integer(string="Estado Certificacion", readonly=True, default=0)
-    #fel_tipo = fields.Char(string="Tipo Documento",related="journal_id.fel_tipo",readonly=True)
+   
 
 
     #def action_post(self):
