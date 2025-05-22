@@ -9,7 +9,7 @@
             
             
             <xpath expr="//notebook" position="inside">
-                <page string="Factura Electronica" invisible="move_type == 'entry' and journal_id.fel_certifica==False">
+                <page string="Factura Electronica" invisible="move_type == 'entry'">
                 </page>
             </xpath>
 
