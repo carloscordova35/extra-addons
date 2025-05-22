@@ -9,4 +9,4 @@ class AccountJournal(models.Model):
     ]
 
     fel_tipo =  fields.Selection(tipos,string="Tipo FEL")
-    fel_establecimiento = fields.Many2one('res.company.establishment',string="Establecimiento")
+    #fel_establecimiento = fields.Many2one('res.company.establishment',string="Establecimiento")

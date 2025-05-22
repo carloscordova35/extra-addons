@@ -8,18 +8,18 @@
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
-                    <page name="fe" string="Electronic Invoice">
+                    <page name="fe" string="Factura Electronica GT">
                         <group>
-                            <field name="fe_entorno" />
-                            <field name="fe_user" />
-                            <field name="fe_apikey" />
-                            <field name="fe_pfxkey" />
-                            <field name="fe_establishment_ids" mode="tree">
-                                <tree editable="bottom">
-                                    <field name="fe_numero"/>
-                                    <field name="fe_comercial"/>                                   
+                            <field name="fel_entorno" />
+                            <field name="fel_user" />
+                            <field name="fel_apikey" />
+                            <field name="fel_pfxkey" />
+                            <field name="fel_establishment_ids" mode="list">
+                                <list editable="bottom">
+                                    <field name="fel_numero"/>
+                                    <field name="fel_comercial"/>                               
                                     <field name="company_id" invisible="1"/>
-                                </tree>
+                                </list>
                             </field>
                             <!--<field name="fe_other_email" />-->
                         </group>
