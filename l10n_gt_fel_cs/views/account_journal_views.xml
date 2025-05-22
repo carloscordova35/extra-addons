@@ -7,23 +7,29 @@
             <field name="model">account.journal</field> <!--modelo-->
             <field name="inherit_id" ref="account.view_account_journal_form"/> <!--id externo-->
             <field name="arch" type="xml">
+            
+                
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="fel_certifica"/>
+                </xpath>
+                    
                     
                 <notebook position="inside" >
-                    <page name="fe" string="Frases y Escenarios de Impuestos"  invisible="company_id.fel_activate==False">
+                    <page name="fe" string="Configuracion de FEL"  invisible="fel_certifica==False">
                         <group>
-                            <!--<field name="fel_gface" />
-                            <field name="fel_entorno" />
-                            <field name="fel_user" />
-                            <field name="fel_apikey" />
-                            <field name="fel_pfxkey" />
-                            <field name="fel_establishment_ids" mode="list">
+                            <field name="fel_establecimiento_ids" />
+                            <field name="fel_tipo" />
+                            <field name="fel_exportacion" />
+                            <!--<field name="fel_apikey" />
+                            <field name="fel_pfxkey" />-->
+                            <field name="fel_frases_ids" mode="list">
                                 <list editable="bottom">
-                                    <field name="fel_numero"/>
-                                    <field name="fel_comercial"/>                  
-                                    <field name="fel_direccion"/>                  
-                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="fel_frase"/>
+                                    <field name="fel_escenario"/>                  
+                                    <field name="fel_detalle"/>                  
+                                    <field name="journal_id" column_invisible="1"/>
                                 </list>
-                            </field>-->
+                            </field>
                             <!--<field name="fe_other_email" />-->
                         </group>
                     </page>

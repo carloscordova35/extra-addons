@@ -11,12 +11,12 @@ class AccountMove(models.Model):
     def _post(self,soft=True):
         posted = super()._post(soft=soft)
         for move in posted:
-            if(move.move_type =='out_invoice'):
-                _logger.info(" >>> Posted Invoice Edit %s is from Guatemala", move.name) 
+            if(move.journal_id.fel_certifica and move.move_type in ('out_invoice')):
+                _logger.info(" >>> Posted Invoice Certificat %s is from Guatemala", move.name) 
         return posted    
 
     fel_fecha_emi = fields.Datetime(string="Fecha emision", readonly=True)
-    fel_status = fields.Integer(string="Estado Certificacion", readonly=True)
+    fel_status = fields.Integer(string="Estado Certificacion", readonly=True, default=0)
     #fel_tipo = fields.Char(string="Tipo Documento",related="journal_id.fel_tipo",readonly=True)
 
 

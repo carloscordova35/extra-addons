@@ -16,7 +16,7 @@ class ResCompany(models.Model):
 class ResCompanyEstablishment(models.Model):
     _name = 'res.company.establishment'
     _description = 'Establecimiento'
-
+    _rec_name = "fel_comercial"
 
     fel_comercial = fields.Char(string = "Nombre comercial")
     fel_numero = fields.Integer(string = "Numero establecimiento")

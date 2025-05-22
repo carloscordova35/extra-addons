@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_res_company_establishment,access.res.company.establishment,model_res_company_establishment,,1,1,1,1
+access_account_journal_phrases,access.account.journal.phrases,model_account_journal_phrases,,1,1,1,1
