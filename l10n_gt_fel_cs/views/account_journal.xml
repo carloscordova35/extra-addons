@@ -2,20 +2,16 @@
 <odoo>
 
     <data>
-        <record id="view_company_form" model="ir.ui.view">
-            <field name="name">view.company.form.inherit</field>
-            <field name="model">res.company</field>
-            <field name="inherit_id" ref="base.view_company_form"/>
+        <record id="account_journal_form" model="ir.ui.view"> <!--datos del modelo-->
+            <field name="name">view.journal.form.inherit</field> <!--vista heredada-->
+            <field name="model">account.journal</field> <!--modelo-->
+            <field name="inherit_id" ref="account.view_account_journal_form"/> <!--id externo-->
             <field name="arch" type="xml">
-
-                <xpath expr="//field[@name='phone']" position="before">
-                    <field name="fel_activate"/>
-                </xpath>
                     
                 <notebook position="inside" >
-                    <page name="fe" string="Factura Electronica GT"  invisible="fel_activate==False">
+                    <page name="fe" string="Frases y Escenarios de Impuestos"  invisible="fel_activate==False">
                         <group>
-                            <field name="fel_gface" />
+                            <!--<field name="fel_gface" />
                             <field name="fel_entorno" />
                             <field name="fel_user" />
                             <field name="fel_apikey" />
@@ -27,7 +23,7 @@
                                     <field name="fel_direccion"/>                  
                                     <field name="company_id" column_invisible="1"/>
                                 </list>
-                            </field>
+                            </field>-->
                             <!--<field name="fe_other_email" />-->
                         </group>
                     </page>

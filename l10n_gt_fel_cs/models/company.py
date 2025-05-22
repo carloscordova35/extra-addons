@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    fel_activate = fields.Boolean(string="Activar modulo") 
+    fel_activate = fields.Boolean(string="Activar modulo FEL GT") 
 
     fel_user = fields.Char(string="Usuario")
     fel_apikey = fields.Char(string="Clave API")
