@@ -8,6 +8,7 @@
     'license': 'LGPL-3',
     'depends': ['account','l10n_gt'],
     'data': [
+        'views/company_views.xml',
         
         # Add your data files here, e.g. 'views/fel_cs_views.xml'
     ],

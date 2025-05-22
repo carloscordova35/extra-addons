@@ -17,7 +17,7 @@ class AccountMove(models.Model):
 
     fel_fecha_emi = fields.Datetime(string="Fecha emision", readonly=True)
     fel_status = fields.Integer(string="Estado Certificacion", readonly=True)
-    fel_tipo = fields.Char(string="Tipo Documento",releated="journal_id.tipo",readonly=True)
+    #fel_tipo = fields.Char(string="Tipo Documento",related="journal_id.fel_tipo",readonly=True)
 
 
     #def action_post(self):
