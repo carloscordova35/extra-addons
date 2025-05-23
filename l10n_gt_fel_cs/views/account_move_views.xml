@@ -10,6 +10,31 @@
             
             <xpath expr="//notebook" position="inside">
                 <page string="Factura Electronica" invisible="move_type == 'entry'">
+                    <group>
+                        <field name="fel_tipo" />
+                        <field name="fel_fecha_emi" />
+                        <br/>
+                        <field name="fel_serie" />
+                        <field name="fel_numero" />
+                        <field name="fel_uuid" />
+                        <field name="fel_fecha_cert" />
+                        <div class="header_right_group"  >
+                            <field name="fel_status" widget="statusbar"/>
+                        </div>
+                        <field name="fel_xml_error" invisible = "fel_status != '2'"/>
+                        <!--<field name="fel_user" />
+                        <field name="fel_apikey" />
+                        <field name="fel_pfxkey" />
+                        <field name="fel_establishment_ids" mode="list">
+                            <list editable="bottom">
+                                <field name="fel_numero"/>
+                                <field name="fel_comercial"/>                  
+                                <field name="fel_direccion"/>                  
+                                <field name="company_id" column_invisible="1"/>
+                            </list>
+                        </field>-->
+                        <!--<field name="fe_other_email" />-->
+                    </group>
                 </page>
             </xpath>
 
