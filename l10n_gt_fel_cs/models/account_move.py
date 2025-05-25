@@ -131,8 +131,39 @@ class AccountMove(models.Model):
         count = 1
         for line in self.invoice_line_ids:
             if line.product_id and line.price_unit>0:
-                 Item = ET.SubElement(Items, 'dte:Item',{'BienOServicio': 'B' if line.product_id.type in ('consu', 'product') else 'S',
+
+                preciot=0
+
+                preciot = line.price_total * ((100-porcdesc)/100)
+
+                Item = ET.SubElement(Items, 'dte:Item',{'BienOServicio': 'B' if line.product_id.type in ('consu', 'product') else 'S',
                                       'NumeroLinea': str(count)})
+                ET.SubElement(Item, 'dte:Cantidad').text = str(round(line.quantity, 4))
+                ET.SubElement(Item, 'dte:UnidadMedida').text = line.product_uom_id.name.upper()[
+                                                               0:3] if line.product_uom_id else 'UND'
+                if line.product_id.barcode:                    
+                    ET.SubElement(Item, 'dte:Descripcion').text = line.product_id.barcode + '|' + line.name
+                elif line.product_id.default_code:
+                    ET.SubElement(Item, 'dte:Descripcion').text = line.product_id.default_code + '|' + line.name
+                else:    
+                    ET.SubElement(Item, 'dte:Descripcion').text = line.name
+
+                ET.SubElement(Item, 'dte:PrecioUnitario').text = str(round(line.price_unit, 6))
+                ET.SubElement(Item, 'dte:Precio').text = str(round(line.price_unit * line.quantity, 6))
+                
+                discountl = 0.0
+
+                if line.discount!=0:
+                    discountl = round((line.quantity * line.price_unit) * (line.discount / 100),2)
+                    ET.SubElement(Item, 'dte:Descuento').text = str(discountl) if line.discount != 0 else "0.00"
+                elif (porcdesc!=0):
+                    discountl = round((line.quantity * line.price_unit) * (porcdesc / 100),2)  
+                    ET.SubElement(Item, 'dte:Descuento').text = str(discountl) if porcdesc!= 0 else "0.00"
+                else:
+                    ET.SubElement(Item, 'dte:Descuento').text = str(discountl) if line.discount != 0 else "0.00" 
+
+                ET.SubElement(Item, 'dte:Total').text = str(round(preciot, 3))
+                count += 1 
         
         fe = ET.ElementTree(root)
         fe.write(f, encoding='utf-8', xml_declaration=True)
