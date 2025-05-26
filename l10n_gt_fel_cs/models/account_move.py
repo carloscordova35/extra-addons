@@ -41,6 +41,7 @@ class AccountMove(models.Model):
                 if not move.fel_fecha_emi:
                     move.fel_fecha_emi = move.create_date
                 _logger.info(" >>> Posted Invoice Certificat %s is from Guatemala (%s)" % (move.name,move.fel_fecha_emi)) 
+                self.sudo().write({'fel_status': '1'})
                 self._createxml()
         return posted    
 
@@ -160,10 +161,50 @@ class AccountMove(models.Model):
                     discountl = round((line.quantity * line.price_unit) * (porcdesc / 100),2)  
                     ET.SubElement(Item, 'dte:Descuento').text = str(discountl) if porcdesc!= 0 else "0.00"
                 else:
-                    ET.SubElement(Item, 'dte:Descuento').text = str(discountl) if line.discount != 0 else "0.00" 
+                    ET.SubElement(Item, 'dte:Descuento').text = str(discountl) if line.discount != 0 else "0.00"
+
+                if self.fel_tipo != 'NABN':
+                    Impuestos = ET.SubElement(Item, 'dte:Impuestos')
+                    if line.tax_ids:
+                        for tax in line.tax_ids:
+                            Impuesto = ET.SubElement(Impuestos, 'dte:Impuesto')
+                            ET.SubElement(Impuesto, 'dte:NombreCorto').text = tax.description
+                            ET.SubElement(Impuesto,
+                                          'dte:CodigoUnidadGravable').text = "2" if self.fel_tipo == 'FAEX' else "1"        
+                            if self.fel_tipo != 'FAEX':                   
+                                ET.SubElement(Impuesto, 'dte:MontoGravable').text = str(round((line.quantity * line.price_unit - discountl) - ((line.quantity * line.price_unit - discountl) / 1.12 * 0.12), 5))
+                                ET.SubElement(Impuesto, 'dte:MontoImpuesto').text = str(
+                                round(preciot / 1.12 * 0.12, 5))
+                            else:
+                                ET.SubElement(Impuesto, 'dte:MontoGravable').text = str(round((line.quantity * line.price_unit  - discountl) - ((line.quantity * line.price_unit - discountl) / 1 * 0), 5))
+                                ET.SubElement(Impuesto, 'dte:MontoImpuesto').text = str(
+                                round(preciot / 1 * 0, 5))
+                    else:
+                        Impuesto = ET.SubElement(Impuestos, 'dte:Impuesto')
+                        ET.SubElement(Impuesto, 'dte:NombreCorto').text = 'IVA'
+                        ET.SubElement(Impuesto,
+                                      'dte:CodigoUnidadGravable').text = "2" if self.fel_tipo == 'FAEX' else "1"
+                        if self.fel_tipo != 'FAEX':
+                            ET.SubElement(Impuesto, 'dte:MontoGravable').text = str(round((line.quantity * line.price_unit -discountl) - ((line.quantity * line.price_unit - discountl) / 1.12 * 0.12), 5))
+                            ET.SubElement(Impuesto, 'dte:MontoImpuesto').text = str(
+                            round(preciot / 1.12 * 0.12, 5))
+                        else:
+                            ET.SubElement(Impuesto, 'dte:MontoGravable').text = str(round((line.quantity * line.price_unit - discountl) - ((line.quantity * line.price_unit - discountl) / 1 * 0), 5))
+                            ET.SubElement(Impuesto, 'dte:MontoImpuesto').text = str(
+                            round(preciot / 1 * 0, 5)) 
 
                 ET.SubElement(Item, 'dte:Total').text = str(round(preciot, 3))
                 count += 1 
+
+        Totales = ET.SubElement(DatosEmision, 'dte:Totales')
+        ET.SubElement(Totales, 'dte:GranTotal').text = str(round(self.amount_total, 3))
+
+        #Agregar adendas
+
+        Adenda = ET.SubElement(SAT, 'dte:Adenda')
+        ET.SubElement(Adenda,'Refencia').text = self.name
+
+        
         
         fe = ET.ElementTree(root)
         fe.write(f, encoding='utf-8', xml_declaration=True)
