@@ -7,9 +7,9 @@ from odoo import models, api,fields
 from odoo.exceptions import UserError
 from datetime import datetime, date, timedelta
 
-from controller.infile import infile
+from ..controller.infile import InFile
 
-_infile = infile.infile()
+_infile = InFile()
 
 
 _logger = logging.getLogger(__name__)
@@ -48,7 +48,13 @@ class AccountMove(models.Model):
                 self.sudo().write({'fel_status': '1'})
                 self._createxml()
 
-                _infile._testapi()
+                _logger.info(_infile._testapi())
+
+                data = _infile._getapi()
+
+                for item in data:
+                    _logger.info(item['nombre'])
+                        
 
         return posted    
 
