@@ -7,6 +7,11 @@ from odoo import models, api,fields
 from odoo.exceptions import UserError
 from datetime import datetime, date, timedelta
 
+from controller.infile import infile
+
+_infile = infile.infile()
+
+
 _logger = logging.getLogger(__name__)
 
 tipos = [
@@ -32,7 +37,6 @@ class AccountMove(models.Model):
     fel_xml_error = fields.Text(string="XML Error",readonly=True)
 
 
-
     #inicia el proceso de envio al confirmar la factura
     def _post(self,soft=True):
         posted = super()._post(soft=soft)
@@ -43,6 +47,9 @@ class AccountMove(models.Model):
                 _logger.info(" >>> Posted Invoice Certificat %s is from Guatemala (%s)" % (move.name,move.fel_fecha_emi)) 
                 self.sudo().write({'fel_status': '1'})
                 self._createxml()
+
+                _infile._testapi()
+
         return posted    
 
    
