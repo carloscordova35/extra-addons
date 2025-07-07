@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Cheque/Check Management in Odoo',
-    'version': '17.0.1.0.16',
+    'version': '18.0.1.0.16',
     'author': 'Globalteckz',
     'category': 'Accounting',
     'description': """
